@@ -198,11 +198,15 @@ document.addEventListener("click", (e) => {
 // Create A Function To Make Scrolling Smooth To Go To The Section
 function scrollToSection(elements) {
   elements.forEach((element) => {
+    element.classList.remove("active");
+  });
+  elements.forEach((element) => {
     element.addEventListener("click", (e) => {
       e.preventDefault();
       document.querySelector(e.target.dataset.section).scrollIntoView({
         behavior: "smooth",
       });
+      e.target.classList.add("active");
     });
   });
 }

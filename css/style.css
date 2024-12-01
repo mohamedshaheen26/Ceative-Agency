@@ -118,6 +118,9 @@ body.stop-scrolling {
 ::-webkit-scrollbar-thumb:hover {
   opacity: 1;
 }
+.active {
+  background-color: var(--main-color);
+}
 /*********************** Start Settings Box ***********************/
 .settings-box {
   position: fixed;
