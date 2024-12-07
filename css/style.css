@@ -17,6 +17,13 @@ body.stop-scrolling {
   overflow: hidden;
 }
 
+.sticky {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 0 50px;
+  height: 80px;
+  transition: 0.3s cubic-bezier(0, 0.54, 1, 1);
+}
+
 /********************** Start Grid System **********************/
 .container {
   padding: 0 15px;
@@ -118,8 +125,12 @@ body.stop-scrolling {
 ::-webkit-scrollbar-thumb:hover {
   opacity: 1;
 }
-.active {
-  background-color: var(--main-color);
+.active__div {
+  background-color: var(--main-color) !important;
+}
+
+.active__link {
+  color: var(--main-color) !important;
 }
 /*********************** Start Settings Box ***********************/
 .settings-box {
@@ -310,14 +321,17 @@ body.stop-scrolling {
   z-index: 1;
 }
 
-.landing-page .container {
-  position: relative;
-  z-index: 100;
+.landing-page header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  color: #fff;
+  display: flex;
+  align-items: center;
 }
 
-header {
-  position: relative;
-  z-index: 2;
+header .container {
   color: #fff;
   padding: 10px;
   display: flex;
@@ -368,7 +382,7 @@ header .toggle-menu.menu-active::before {
   content: "";
   border-width: 10px;
   border-style: solid;
-  border-color: transparent transparent white;
+  border-color: transparent transparent rgb(207 207 207);
   position: absolute;
   bottom: -10px;
   left: 10px;
@@ -394,10 +408,10 @@ header .toggle-menu:hover span {
   header .links {
     width: 100%;
     padding: 10px;
-    background: white;
+    background: rgb(207 207 207);
     position: absolute;
     left: 0;
-    top: 50px;
+    top: 76px;
     border-radius: 4px;
     display: none;
     flex-wrap: wrap;

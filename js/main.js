@@ -56,6 +56,22 @@ colors.forEach((li) => {
   });
 });
 
+// Sticky Nav when Scroll
+window.onscroll = function () {
+  scroll();
+};
+
+function scroll() {
+  if (
+    document.body.scrollTop >= 50 ||
+    document.documentElement.scrollTop >= 50
+  ) {
+    document.querySelector("header").classList.add("sticky");
+  } else {
+    document.querySelector("header").classList.remove("sticky");
+  }
+}
+
 // Random Background Option
 let option_bg = true;
 let bg_interval;
@@ -197,18 +213,76 @@ document.addEventListener("click", (e) => {
 
 // Create A Function To Make Scrolling Smooth To Go To The Section
 function scrollToSection(elements) {
-  elements.forEach((element) => {
-    element.classList.remove("active");
-  });
+  // Add click event to each element for smooth scrolling
   elements.forEach((element) => {
     element.addEventListener("click", (e) => {
       e.preventDefault();
-      document.querySelector(e.target.dataset.section).scrollIntoView({
+
+      // Remove active class from all elements before adding to the clicked one
+      elements.forEach((el) => {
+        el.classList.remove("active__link");
+        el.classList.remove("active__div");
+      });
+
+      // Add specific active class based on the element type
+      if (e.target.tagName === "DIV") {
+        e.target.classList.add("active__div");
+      } else if (e.target.tagName === "A") {
+        e.target.classList.add("active__link");
+      }
+
+      // Smooth scroll to the target section
+      const targetSection = document.querySelector(e.target.dataset.section);
+      targetSection.scrollIntoView({
         behavior: "smooth",
       });
-      e.target.classList.add("active");
     });
   });
+
+  // Check if the section is in the viewport and update active class
+  function checkActiveSection() {
+    const scrollPosition = window.scrollY + window.innerHeight;
+
+    // Remove active class from all elements when at the top of the page
+    if (window.scrollY === 0) {
+      elements.forEach((el) => {
+        el.classList.remove("active__link");
+        el.classList.remove("active__div");
+      });
+      return;
+    }
+
+    // Loop through each element and check if its target section is in view
+    elements.forEach((el) => {
+      const targetSection = document.querySelector(el.dataset.section);
+      if (targetSection) {
+        const sectionTop = targetSection.offsetTop;
+        const sectionBottom = sectionTop + targetSection.offsetHeight;
+
+        if (
+          scrollPosition >= sectionTop + targetSection.offsetHeight * 0.6 &&
+          scrollPosition <= sectionBottom
+        ) {
+          elements.forEach((el) => {
+            el.classList.remove("active__link");
+            el.classList.remove("active__div");
+          });
+
+          if (el.tagName === "DIV") {
+            el.classList.add("active__div");
+          } else if (el.tagName === "A") {
+            el.classList.add("active__link");
+          }
+        }
+      }
+    });
+  }
+
+  // Listen for scroll events
+  window.addEventListener("scroll", checkActiveSection);
+
+  // Call the function on page load to set the active state initially
+  checkActiveSection();
 }
 
 // Select All Links And Call Function (scrollToSection)
