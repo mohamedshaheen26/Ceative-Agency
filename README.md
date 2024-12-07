@@ -19,5 +19,5 @@ A modern and visually appealing website designed to showcase services, projects,
 ## Screenshots
 
 ```markdown
-![Creative Agency Homepage](imgs/screenshot.png)
+![Creative Agency Homepage](CreativeAgencyScreenshot.png)
 ```
